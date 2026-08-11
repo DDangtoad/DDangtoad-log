@@ -37,5 +37,24 @@ const pageTitle = title === "DDangtoad의 두꺼비굴" ? title : `${title} | DD
       <slot />
       <Footer />
     </div>
+    <script>
+      const toad = document.querySelector<HTMLImageElement>(".background-toad");
+      const interactiveSelector = "a, button, input, textarea, select, summary, label, [role='button'], [contenteditable='true']";
+
+      if (toad) {
+        document.addEventListener("pointerdown", (event) => {
+          const target = event.target;
+          if (event.button !== 0 || !(target instanceof Element) || target.closest(interactiveSelector)) return;
+
+          toad.classList.remove("is-super-jumping");
+          void toad.offsetWidth;
+          toad.classList.add("is-super-jumping");
+        });
+
+        toad.addEventListener("animationend", (event) => {
+          if (event.animationName === "toad-super-jump") toad.classList.remove("is-super-jumping");
+        });
+      }
+    </script>
   </body>
 </html>

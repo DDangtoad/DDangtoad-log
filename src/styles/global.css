@@ -70,6 +70,9 @@ button, input { font: inherit; }
   image-rendering: pixelated;
   animation: toad-jump 9s ease-in-out infinite;
 }
+.background-toad.is-super-jumping {
+  animation: toad-super-jump .95s cubic-bezier(.2, .78, .24, 1) 1;
+}
 @keyframes toad-roam {
   from { transform: translateX(0); }
   to { transform: translateX(calc(94vw - 58px)); }
@@ -78,6 +81,13 @@ button, input { font: inherit; }
   0%, 76%, 100% { transform: translateY(0); }
   84% { transform: translateY(-26px); }
   92% { transform: translateY(0); }
+}
+@keyframes toad-super-jump {
+  0%, 100% { transform: translateY(0) scale(1); filter: none; }
+  18% { transform: translateY(5px) scale(1.12, .86); }
+  50% { transform: translateY(-150px) scale(.94, 1.08); filter: drop-shadow(0 10px 8px rgb(39 232 197 / 28%)); }
+  78% { transform: translateY(-42px) scale(1); }
+  90% { transform: translateY(4px) scale(1.14, .84); }
 }
 
 @media (max-width: 640px) {
