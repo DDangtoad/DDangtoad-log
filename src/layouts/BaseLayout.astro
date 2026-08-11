@@ -1,0 +1,41 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import "../styles/global.css";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+type Props = {
+  readonly title?: string;
+  readonly description?: string;
+};
+
+const {
+  title = "DDangtoad의 두꺼비굴",
+  description = "보안을 공부하면서 정리하고 기록하는 DDangtoad의 개인 블로그입니다.",
+} = Astro.props;
+const pageTitle = title === "DDangtoad의 두꺼비굴" ? title : `${title} | DDangtoad의 두꺼비굴`;
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#020504" />
+    <link rel="icon" href={`${base}/favicon.svg`} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">본문으로 건너가기</a>
+    <div class="toad-walker" aria-hidden="true">
+      <img class="background-toad" src={`${base}/pixel-toad.png`} width="14" height="12" alt="" />
+    </div>
+    <div class="site-frame">
+      <Header />
+      <slot />
+      <Footer />
+    </div>
+  </body>
+</html>

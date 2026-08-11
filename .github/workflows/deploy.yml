@@ -7,8 +7,6 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages
@@ -17,6 +15,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -27,6 +28,10 @@ jobs:
 
       - run: npm ci
 
+      - run: npm run check
+
+      - run: npm run lint
+
       - run: npm run build
 
       - uses: actions/upload-pages-artifact@v3
@@ -35,7 +40,6 @@ jobs:
 
   deploy:
     needs: build
-
     runs-on: ubuntu-latest
 
     environment:

@@ -1,0 +1,38 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const path = Astro.url.pathname.replace(base, "") || "/";
+const items = [
+  { href: "/", label: "HOME" },
+  { href: "/posts", label: "POSTS" },
+  { href: "/about", label: "ABOUT" },
+] as const;
+const isActive = (href: string) => href === "/" ? path === "/" : path.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href={`${base}/`}>DDangtoad의 두꺼비굴</a>
+    <nav aria-label="주요 메뉴">
+      {items.map((item) => (
+        <a href={`${base}${item.href}`} class:list={{ active: isActive(item.href) }} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header { position: relative; z-index: 10; border-bottom: 1px solid var(--line); }
+  .header-inner { display: flex; width: min(calc(100% - 40px), 900px); min-height: 72px; align-items: center; justify-content: space-between; gap: 24px; margin-inline: auto; }
+  .brand { color: var(--text); font-size: .92rem; font-weight: 650; text-decoration: none; }
+  nav { display: flex; align-items: center; gap: 28px; }
+  nav a { position: relative; color: var(--muted); font-size: .78rem; text-decoration: none; }
+  nav a:hover, nav a.active { color: var(--cyan); }
+  nav a.active::after { position: absolute; right: 0; bottom: -26px; left: 0; height: 1px; content: ""; background: var(--cyan); }
+  @media (max-width: 640px) {
+    .header-inner { width: min(calc(100% - 32px), 900px); min-height: 64px; }
+    .brand { max-width: 150px; font-size: .82rem; line-height: 1.25; }
+    nav { gap: 16px; }
+    nav a { font-size: .72rem; }
+    nav a.active::after { bottom: -23px; }
+  }
+</style>

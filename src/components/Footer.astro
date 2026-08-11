@@ -1,0 +1,21 @@
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>DDangtoad.log</span>
+    <div class="links">
+      <a href="https://ddangtoad.tistory.com/">Tistory</a>
+      <a href="mailto:gimce05@gmail.com">gimce05@gmail.com</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer { position: relative; z-index: 2; border-top: 1px solid var(--line); }
+  .footer-inner { display: flex; width: min(calc(100% - 40px), 900px); min-height: 92px; align-items: center; justify-content: space-between; gap: 24px; margin-inline: auto; color: var(--muted); font-size: .74rem; }
+  .links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 20px; }
+  a { text-decoration: none; }
+  a:hover { color: var(--cyan); }
+  @media (max-width: 640px) {
+    .footer-inner { width: min(calc(100% - 32px), 900px); align-items: flex-start; flex-direction: column; justify-content: center; gap: 8px; }
+    .links { justify-content: flex-start; }
+  }
+</style>

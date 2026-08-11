@@ -1,0 +1,78 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const posts = (await getCollection("posts")).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title="Posts" description="DDangtoad의 공부 및 보안 기록입니다.">
+  <main id="main-content" class="content-shell posts-page">
+    <header>
+      <p class="eyebrow">POSTS</p>
+      <h1 class="page-title">POSTS</h1>
+      <p class="page-description">공부하면서 알게 된 내용과 생각을 기록합니다.</p>
+    </header>
+
+    <div class="tools">
+      <label for="post-search">SEARCH</label>
+      <input id="post-search" type="search" placeholder="제목, 소개, 태그" data-post-search />
+    </div>
+
+    <section class="post-list" aria-label="글 목록">
+      <p class="count" data-result-count aria-live="polite">POSTS / {posts.length}</p>
+      {posts.map((post) => (
+        <article data-post-card data-search={`${post.data.title} ${post.data.description} ${post.data.tags.join(" ")}`.toLowerCase()}>
+          <time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString("ko-KR")}</time>
+          <div>
+            <h2><a href={`${base}/posts/${post.id}`}>{post.data.title}</a></h2>
+            <p>{post.data.description}</p>
+            <ul class="tag-list" aria-label="태그">{post.data.tags.map((tag) => <li class="tag">{tag}</li>)}</ul>
+          </div>
+        </article>
+      ))}
+      <p class="no-results" data-no-results role="status" aria-live="polite" hidden>일치하는 글이 없습니다.</p>
+    </section>
+  </main>
+</BaseLayout>
+
+<script>
+  const searchInput = document.querySelector<HTMLInputElement>("[data-post-search]");
+  const cards = document.querySelectorAll<HTMLElement>("[data-post-card]");
+  const count = document.querySelector<HTMLElement>("[data-result-count]");
+  const noResults = document.querySelector<HTMLElement>("[data-no-results]");
+
+  function applySearch(): void {
+    const query = searchInput?.value.trim().toLowerCase() ?? "";
+    let visibleCount = 0;
+    cards.forEach((card) => {
+      const matchesText = card.dataset.search?.includes(query) ?? false;
+      card.hidden = !matchesText;
+      if (matchesText) visibleCount += 1;
+    });
+    if (count) count.textContent = `POSTS / ${visibleCount}`;
+    if (noResults) noResults.hidden = visibleCount !== 0;
+  }
+
+  searchInput?.addEventListener("input", applySearch);
+</script>
+
+<style>
+  .posts-page > header { padding: 36px 0 64px; }
+  .tools { display: grid; grid-template-columns: auto minmax(180px, 320px); align-items: center; gap: 14px; padding: 18px 0; border-block: 1px solid var(--line); }
+  label { color: var(--cyan); font: .68rem var(--mono); }
+  input { width: 100%; min-height: 38px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 0; background: transparent; color: var(--text); }
+  .count { margin: 24px 0 6px; color: var(--muted); font: .64rem var(--mono); }
+  article { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 28px; padding: 30px 0; border-bottom: 1px solid var(--line); }
+  time { padding-top: 5px; color: var(--muted); font: .66rem var(--mono); }
+  h2 { margin: 0 0 7px; font-size: 1.25rem; font-weight: 600; }
+  h2 a { text-decoration: none; }
+  h2 a:hover { color: var(--cyan); }
+  article p { margin: 0 0 14px; color: var(--muted); font-size: .88rem; }
+  .no-results { padding: 30px 0; color: var(--muted); }
+  @media (max-width: 640px) {
+    .posts-page > header { padding: 20px 0 52px; }
+    .tools { grid-template-columns: 1fr; }
+    article { grid-template-columns: 1fr; gap: 6px; }
+  }
+</style>

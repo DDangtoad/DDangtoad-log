@@ -1,11 +1,26 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<Layout title="Home">
+<BaseLayout>
+  <main id="main-content" class="content-shell home">
+    <header class="intro">
+      <p class="eyebrow">DDANGTOAD.LOG</p>
+      <h1>두꺼비굴에<br />오신 것을<br />환영합니다.</h1>
+      <p class="english">Welcome to DDangtoad's Toad Den.</p>
+      <p class="description">제가 보안을 공부하면서 정리하고 기록하는 블로그입니다.<br />차린 건 없지만 많이 드세요.</p>
+    </header>
 
-<h2>Welcome to DDangtoad</h2>
+  </main>
+</BaseLayout>
 
-<p>Information Security Blog</p>
-
-</Layout>
+<style>
+  .intro { padding: 36px 0 92px; }
+  h1 { max-width: 760px; margin: 18px 0 12px; font-size: 6rem; font-weight: 650; line-height: .98; }
+  .english { margin: 0; color: var(--cyan); font: .76rem var(--mono); letter-spacing: .06em; }
+  .description { max-width: 580px; margin: 34px 0 0; color: var(--muted); font-size: 1.03rem; }
+  @media (max-width: 640px) {
+    .intro { padding: 20px 0 68px; }
+    h1 { font-size: 3.8rem; }
+  }
+</style>
