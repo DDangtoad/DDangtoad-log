@@ -1,5 +1,5 @@
 ---
-title: "DEF CON 34 후기"
+title: "DEF CON 34 CTF 후기"
 date: 2026-08-11
 description: "Jinddabi's 팀으로 참여한 DEF CON 34 예선과 본선 기록입니다."
 tags:
@@ -16,7 +16,7 @@ DEF CON CTF는 King of the Hill, Attack & Defense 등 제가 주로 참여하던
 
 ---
 
-## DEF CON 예선
+## DEF CON CTF 예선
 
 먼저 저희 팀은 90명대 규모로, 적은 인원은 아니었습니다.
 
@@ -44,7 +44,7 @@ DEF CON CTF는 King of the Hill, Attack & Defense 등 제가 주로 참여하던
 
 ---
 
-## DEF CON 본선
+## DEF CON CTF 본선
 
 본선이 시작되고 저는 한국에 남아 한국팀으로 참여했습니다.
 
