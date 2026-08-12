@@ -1,7 +1,7 @@
 ---
 title: "DEF CON 34 CTF 후기"
 date: 2026-08-11
-description: "Jinddabi's 팀으로 참여한 DEF CON 34 예선과 본선 기록입니다."
+description: "Jinddabi's 팀으로 참여한 DEF CON 34 CTF 예선과 본선 기록입니다."
 tags:
   - DEF CON
   - CTF
